@@ -3,18 +3,21 @@ import axios, { AxiosError } from "axios";
 import { parseCookies, destroyCookie } from "nookies";
 import { AuthTokenError } from "./errors/AuthTokenError";
 import { redirect } from "next/navigation";
-
+import { loadEnvConfig } from '@next/env'
+import { env } from "../../../env";
 
 const token = parseCookies()
 
 export const api = axios.create({
-  // http://localhost:8080
-  baseURL: "https://send-message-api.fly.dev/",
+  // baseURL: "http://localhost:8080/",
+  baseURL: env.API_URL,
   headers: {
     "X-Requested-With": "XMLHttpRequest",
   },
 });
 
+
+console.log(process.env.API_URL);
 
 
 api.interceptors.request.use((config) => {
